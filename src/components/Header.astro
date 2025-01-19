@@ -1,0 +1,15 @@
+---
+const APP_ROUTES = [
+    { name: "home", href: "/" },
+    { name: "books", href: "books" },
+    { name: "about", href: "about" },
+];
+---
+
+<header>
+    <span>Sol Books</span>
+
+    <nav>
+        {APP_ROUTES.map((link) => <a href={link.href}>{link.name}</a>)}
+    </nav>
+</header>
