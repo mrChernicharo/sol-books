@@ -1,15 +1,103 @@
 ---
+import astroLogo from "../assets/astro.svg";
+
 const APP_ROUTES = [
     { name: "home", href: "/" },
-    { name: "books", href: "books" },
-    { name: "about", href: "about" },
+    { name: "books", href: "/books" },
+    { name: "about", href: "/about" },
 ];
+
+const { pathname } = Astro.url;
 ---
 
 <header>
     <span>Sol Books</span>
 
     <nav>
-        {APP_ROUTES.map((link) => <a href={link.href}>{link.name}</a>)}
+        <div id="large-nav">
+            {
+                APP_ROUTES.map((link) => (
+                    <a href={link.href} class={pathname === link.href ? "active" : ""}>
+                        {link.name}
+                    </a>
+                ))
+            }
+        </div>
+
+        <div id="small-nav">
+            <button>
+                <!-- <img src={astroLogo.src} id="nav-hamburger-btn" /> -->
+                =
+            </button>
+
+            <dialog>
+                {
+                    APP_ROUTES.map((link) => (
+                        <a href={link.href} class={pathname === link.href ? "active" : ""}>
+                            {link.name}
+                        </a>
+                    ))
+                }
+                <button>x</button>
+            </dialog>
+        </div>
     </nav>
+
+    <script>
+        const smallNav = document.querySelector("#small-nav")!;
+        const navBtn = smallNav.querySelector("button")!;
+        const dialog = smallNav.querySelector("dialog")!;
+        const dialogCloseBtn = dialog.querySelector("button")!;
+
+        document.addEventListener("click", (e) => {
+            if (e.composedPath().includes(navBtn)) {
+                dialog.open = !dialog.open;
+            } else if (
+                !e.composedPath().includes(dialog) ||
+                e.composedPath().includes(dialogCloseBtn)
+            ) {
+                dialog.open = false;
+            }
+        });
+    </script>
 </header>
+
+<style>
+    header {
+        height: 56px;
+        border: 1px solid;
+        display: flex;
+        justify-content: space-between;
+    }
+    dialog {
+        left: unset;
+        border: 1px solid;
+    }
+
+    a {
+        text-decoration: none;
+    }
+    a.active {
+        color: forestgreen;
+    }
+    a:active {
+        color: darkgreen;
+    }
+
+    @media screen and (max-width: 600px) {
+        #large-nav {
+            display: none;
+        }
+        #small-nav {
+            display: block;
+        }
+    }
+    @media screen and (min-width: 601px) {
+        #large-nav {
+            display: block;
+        }
+        #small-nav {
+            display: none;
+        }
+    }
+</style>
