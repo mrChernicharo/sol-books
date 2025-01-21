@@ -18,7 +18,9 @@ import Header from "../components/Header.astro";
         <img id="background" src={background.src} alt="" fetchpriority="high" />
         <Header />
 
-        <slot />
+        <main>
+            <slot />
+        </main>
     </body>
 </html>
 

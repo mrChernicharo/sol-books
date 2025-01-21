@@ -11,7 +11,10 @@ const { pathname } = Astro.url;
 ---
 
 <header>
-    <span>Sol Books</span>
+    <div id="head-logo-container">
+        <img src="logo.png" alt="" />
+        <span>sol books</span>
+    </div>
 
     <nav>
         <div id="large-nav">
@@ -68,20 +71,36 @@ const { pathname } = Astro.url;
         border: 1px solid;
         display: flex;
         justify-content: space-between;
-    }
-    dialog {
-        left: unset;
-        border: 1px solid;
-    }
 
-    a {
-        text-decoration: none;
-    }
-    a.active {
-        color: forestgreen;
-    }
-    a:active {
-        color: darkgreen;
+        #head-logo-container {
+            height: 56px;
+            color: #27b9b4;
+            background-color: #292929;
+            display: flex;
+            align-items: center;
+            padding-left: 8px;
+            padding-right: 16px;
+
+            img {
+                width: 56px;
+                height: 56px;
+            }
+        }
+
+        dialog {
+            left: unset;
+            border: 1px solid;
+        }
+
+        a {
+            text-decoration: none;
+        }
+        a.active {
+            color: forestgreen;
+        }
+        a:active {
+            color: darkgreen;
+        }
     }
 
     @media screen and (max-width: 600px) {
