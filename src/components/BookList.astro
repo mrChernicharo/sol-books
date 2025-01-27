@@ -48,32 +48,36 @@ const books = [
     {
         [...books, ...books, ...books].map((book) => (
             <li class="book">
-                <h2>{book.title}</h2>
+                <div class="book-title">
+                    <h2>{book.title}</h2>
+                </div>
 
                 <div class="img-container">
                     <img src={book.coverImg} alt={book.title} />
                 </div>
 
-                <span>
-                    by{" "}
-                    {book.authors.map((author, i) =>
-                        i > 0 ? (
-                            <span>
-                                and <strong>{author}</strong>
-                            </span>
-                        ) : (
-                            <span>
-                                <strong>{author}</strong>
-                            </span>
-                        )
-                    )}
-                </span>
+                <div class="book-info">
+                    <span>
+                        by{" "}
+                        {book.authors.map((author, i) =>
+                            i > 0 ? (
+                                <span>
+                                    and <strong>{author}</strong>
+                                </span>
+                            ) : (
+                                <span>
+                                    <strong>{author}</strong>
+                                </span>
+                            )
+                        )}
+                    </span>
 
-                <p>{book.description}</p>
+                    <p>{book.description}</p>
 
-                <div>
-                    for only <strong>{book.price}</strong>
-                    {/* for only <span>{intl.format(book.price)}</span> */}
+                    <div>
+                        for only <strong>{book.price}</strong>
+                        {/* for only <span>{intl.format(book.price)}</span> */}
+                    </div>
                 </div>
             </li>
         ))
@@ -85,6 +89,7 @@ const books = [
         --dark-01: #292929;
         --light-01: #eee;
         --light-02: #ddd;
+        --light-03: #aaa;
         --secondary-01: #7b00ff;
         --accent-01: #27b9b4;
         --see-through-01: #29292955;
@@ -104,7 +109,16 @@ const books = [
     }
 
     .book {
-        border: 1px solid;
+        border: 1px solid var(--light-03);
+
+        .book-title {
+            padding-inline: 24px;
+        }
+
+        .book-info {
+            padding-inline: 24px;
+            padding-block: 24px;
+        }
 
         .img-container {
             height: 400px;
