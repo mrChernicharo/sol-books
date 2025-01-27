@@ -3,28 +3,54 @@
 ---
 
 <div id="hero-container">
-    <div id="text-container">
-        <span>welcome</span>
+    <div id="hero-text-container">
+        <h1>Welcome to Sol Books</h1>
+        <h2>A Bookstore made by kids for kids</h2>
+
+        <p>
+            You are about to enter a world of wonders, laughs, and adventures. Here creativity has
+            no limits!
+        </p>
     </div>
-    <img id="hero" src="hero.webp" />
+    <img id="hero-image" src="hero.webp" />
 </div>
 
 <style>
+    :root {
+        --dark-01: #292929;
+        --light-01: #eee;
+        --secondary-01: #7b00ff;
+        --accent-01: #27b9b4;
+        --see-through-01: #29292955;
+    }
+
     #hero-container {
         display: flex;
         justify-content: space-between;
+        background-color: var(--secondary-01);
         width: 100%;
     }
 
-    #text-container {
-        background-color: blue;
-        color: white;
-        flex-grow: 10;
+    #hero-text-container {
+        position: absolute;
+        top: 240px;
+        left: 50%;
+        z-index: 1;
+        transform: translateX(-50%);
+
+        color: var(--light-01);
+        background-color: var(--see-through-01);
+        backdrop-filter: blur(0.5);
+
         min-width: 360px;
+        border-radius: 16px;
+        text-align: center;
+        padding: 24px;
     }
 
-    img#hero {
+    img#hero-image {
         max-height: 700px;
         transform: scaleX(-1);
+        margin: 0 auto;
     }
 </style>

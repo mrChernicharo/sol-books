@@ -1,0 +1,142 @@
+---
+const books = [
+    {
+        title: "Space Travelers",
+        authors: ["Soleil Adelakun Chernicharo", "Lenox Brown"],
+        coverImg: "space.jpg",
+        description:
+            "Hop onto our spaceship so together we will learn everything about Stars, Planets and Black Holes.",
+        price: 19.95,
+    },
+    {
+        title: "Ruby the Cat",
+        authors: ["Soleil Adelakun Chernicharo", "Lenox Brown"],
+        coverImg: "ruby.01.jpg",
+        description: "The hilarious misadventures of the worst cat in the world.",
+        price: 19.95,
+    },
+    {
+        title: "Kilimanjaro Hike",
+        authors: ["Soleil Adelakun Chernicharo", "Lenox Brown"],
+        coverImg: "hike.01.jpg",
+        description:
+            "Join Julia, Martha and Jamal in a hike to one of the world's tallest mountains.",
+        price: 19.95,
+    },
+    {
+        title: "The Little Princess",
+        authors: ["Soleil Adelakun Chernicharo", "Lenox Brown"],
+        coverImg: "princess.webp",
+        description: "She is only 10 years old and now have to rule the entire realm.",
+        price: 19.95,
+    },
+    {
+        title: "Kingdom Tales",
+        authors: ["Soleil Adelakun Chernicharo", "Lenox Brown"],
+        coverImg: "kingdom.01.jpg",
+        description: "Fantasy and wonder.",
+        price: 19.95,
+    },
+];
+
+// const intl = Intl.NumberFormat("pt-BR", {});
+---
+
+<h1>Our Books</h1>
+
+<ul id="book-list">
+    {
+        [...books, ...books, ...books].map((book) => (
+            <li class="book">
+                <h2>{book.title}</h2>
+
+                <div class="img-container">
+                    <img src={book.coverImg} alt={book.title} />
+                </div>
+
+                <span>
+                    by{" "}
+                    {book.authors.map((author, i) =>
+                        i > 0 ? (
+                            <span>
+                                and <strong>{author}</strong>
+                            </span>
+                        ) : (
+                            <span>
+                                <strong>{author}</strong>
+                            </span>
+                        )
+                    )}
+                </span>
+
+                <p>{book.description}</p>
+
+                <div>
+                    for only <strong>{book.price}</strong>
+                    {/* for only <span>{intl.format(book.price)}</span> */}
+                </div>
+            </li>
+        ))
+    }
+</ul>
+
+<style>
+    :root {
+        --dark-01: #292929;
+        --light-01: #eee;
+        --light-02: #ddd;
+        --secondary-01: #7b00ff;
+        --accent-01: #27b9b4;
+        --see-through-01: #29292955;
+    }
+
+    ul,
+    ol {
+        list-style: none;
+        padding: 0;
+    }
+
+    #book-list {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+        padding: 16px;
+    }
+
+    .book {
+        border: 1px solid;
+
+        .img-container {
+            height: 400px;
+            overflow: hidden;
+            display: flex;
+        }
+
+        img {
+            width: 100%;
+            object-fit: cover;
+        }
+
+        &:hover {
+            cursor: pointer;
+            background-color: var(--light-02);
+            /* background-color: var(--see-through-01); */
+        }
+    }
+
+    h1 {
+        text-align: center;
+    }
+
+    @media screen and (max-width: 1420px) {
+        #book-list {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @media screen and (max-width: 876px) {
+        #book-list {
+            grid-template-columns: repeat(1, 1fr);
+        }
+    }
+</style>

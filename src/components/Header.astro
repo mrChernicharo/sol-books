@@ -66,16 +66,24 @@ const { pathname } = Astro.url;
 </header>
 
 <style>
+    :root {
+        --dark-01: #292929;
+        --light-01: #eee;
+        --accent-01: #27b9b4;
+    }
+
     header {
-        height: 56px;
-        border: 1px solid;
+        /* border: 1px solid; */
+        height: 48px;
         display: flex;
         justify-content: space-between;
+        align-items: center;
+        background-color: var(--dark-01);
+        color: var(--light-01);
 
         #head-logo-container {
             height: 56px;
-            color: #27b9b4;
-            background-color: #292929;
+            color: var(--accent-01);
             display: flex;
             align-items: center;
             padding-left: 8px;
@@ -87,13 +95,20 @@ const { pathname } = Astro.url;
             }
         }
 
+        nav {
+            border: 1px solid;
+            margin-right: 16px;
+        }
+
         dialog {
             left: unset;
             border: 1px solid;
+            z-index: 2;
         }
 
         a {
             text-decoration: none;
+            color: var(--light-01);
         }
         a.active {
             color: forestgreen;
