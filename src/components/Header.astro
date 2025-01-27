@@ -11,29 +11,14 @@ const { pathname } = Astro.url;
 ---
 
 <header>
-    <div id="head-logo-container">
-        <img src="logo.png" alt="" />
-        <span>sol books</span>
-    </div>
-
-    <nav>
-        <div id="large-nav">
-            {
-                APP_ROUTES.map((link) => (
-                    <a href={link.href} class={pathname === link.href ? "active" : ""}>
-                        {link.name}
-                    </a>
-                ))
-            }
+    <div class="header-container">
+        <div id="head-logo-container">
+            <img src="logo.png" alt="" />
+            <span>sol books</span>
         </div>
 
-        <div id="small-nav">
-            <button>
-                <!-- <img src={astroLogo.src} id="nav-hamburger-btn" /> -->
-                =
-            </button>
-
-            <dialog>
+        <nav>
+            <div id="large-nav">
                 {
                     APP_ROUTES.map((link) => (
                         <a href={link.href} class={pathname === link.href ? "active" : ""}>
@@ -41,29 +26,46 @@ const { pathname } = Astro.url;
                         </a>
                     ))
                 }
-                <button>x</button>
-            </dialog>
-        </div>
-    </nav>
+            </div>
 
-    <script>
-        const smallNav = document.querySelector("#small-nav")!;
-        const navBtn = smallNav.querySelector("button")!;
-        const dialog = smallNav.querySelector("dialog")!;
-        const dialogCloseBtn = dialog.querySelector("button")!;
+            <div id="small-nav">
+                <button>
+                    <!-- <img src={astroLogo.src} id="nav-hamburger-btn" /> -->
+                    =
+                </button>
 
-        document.addEventListener("click", (e) => {
-            if (e.composedPath().includes(navBtn)) {
-                dialog.open = !dialog.open;
-            } else if (
-                !e.composedPath().includes(dialog) ||
-                e.composedPath().includes(dialogCloseBtn)
-            ) {
-                dialog.open = false;
-            }
-        });
-    </script>
+                <dialog>
+                    {
+                        APP_ROUTES.map((link) => (
+                            <a href={link.href} class={pathname === link.href ? "active" : ""}>
+                                {link.name}
+                            </a>
+                        ))
+                    }
+                    <button>x</button>
+                </dialog>
+            </div>
+        </nav>
+    </div>
 </header>
+
+<script>
+    const smallNav = document.querySelector("#small-nav")!;
+    const navBtn = smallNav.querySelector("button")!;
+    const dialog = smallNav.querySelector("dialog")!;
+    const dialogCloseBtn = dialog.querySelector("button")!;
+
+    document.addEventListener("click", (e) => {
+        if (e.composedPath().includes(navBtn)) {
+            dialog.open = !dialog.open;
+        } else if (
+            !e.composedPath().includes(dialog) ||
+            e.composedPath().includes(dialogCloseBtn)
+        ) {
+            dialog.open = false;
+        }
+    });
+</script>
 
 <style>
     :root {
@@ -73,48 +75,61 @@ const { pathname } = Astro.url;
     }
 
     header {
-        /* border: 1px solid; */
         height: 48px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        background-color: var(--dark-01);
-        color: var(--light-01);
 
-        #head-logo-container {
-            height: 56px;
-            color: var(--accent-01);
+        .header-container {
+            position: fixed;
+            height: 48px;
+            width: 100%;
+            z-index: 1;
+            top: 0;
+
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            padding-left: 8px;
-            padding-right: 16px;
-
-            img {
-                width: 56px;
-                height: 56px;
-            }
-        }
-
-        nav {
-            border: 1px solid;
-            margin-right: 16px;
-        }
-
-        dialog {
-            left: unset;
-            border: 1px solid;
-            z-index: 2;
-        }
-
-        a {
-            text-decoration: none;
+            background-color: var(--dark-01);
             color: var(--light-01);
-        }
-        a.active {
-            color: forestgreen;
-        }
-        a:active {
-            color: darkgreen;
+
+            #head-logo-container {
+                height: 56px;
+                color: var(--accent-01);
+                display: flex;
+                align-items: center;
+                padding-left: 8px;
+                padding-right: 16px;
+
+                img {
+                    width: 56px;
+                    height: 56px;
+                }
+            }
+
+            nav {
+                margin-right: 18px;
+                font-size: 18px;
+
+                #large-nav a {
+                    margin-left: 8px;
+                    text-transform: uppercase;
+                }
+            }
+
+            dialog {
+                left: unset;
+                z-index: 2;
+                background-color: var(--dark-01);
+            }
+
+            a {
+                text-decoration: none;
+                color: var(--light-01);
+            }
+            a.active {
+                color: forestgreen;
+            }
+            a:active {
+                color: darkgreen;
+            }
         }
     }
 
