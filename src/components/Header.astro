@@ -1,13 +1,5 @@
 ---
-import astroLogo from "../assets/astro.svg";
-
-const APP_ROUTES = [
-    { name: "home", href: "/" },
-    { name: "books", href: "/books" },
-    { name: "about", href: "/about" },
-];
-
-const { pathname } = Astro.url;
+import Nav from "./Nav.astro";
 ---
 
 <header>
@@ -17,71 +9,44 @@ const { pathname } = Astro.url;
             <span>sol books</span>
         </div>
 
-        <nav>
-            <div id="large-nav">
-                {
-                    APP_ROUTES.map((link) => (
-                        <a href={link.href} class={pathname === link.href ? "active" : ""}>
-                            {link.name}
-                        </a>
-                    ))
-                }
-            </div>
-
-            <div id="small-nav">
-                <button>
-                    <!-- <img src={astroLogo.src} id="nav-hamburger-btn" /> -->
-                    =
-                </button>
-
-                <dialog>
-                    {
-                        APP_ROUTES.map((link) => (
-                            <a href={link.href} class={pathname === link.href ? "active" : ""}>
-                                {link.name}
-                            </a>
-                        ))
-                    }
-                    <button>x</button>
-                </dialog>
-            </div>
-        </nav>
+        <Nav />
     </div>
 </header>
 
 <script>
+    const header = document.querySelector(".header-container")!;
     const smallNav = document.querySelector("#small-nav")!;
     const navBtn = smallNav.querySelector("button")!;
     const dialog = smallNav.querySelector("dialog")!;
     const dialogCloseBtn = dialog.querySelector("button")!;
 
-    document.addEventListener("click", (e) => {
-        if (e.composedPath().includes(navBtn)) {
-            dialog.open = !dialog.open;
-        } else if (
-            !e.composedPath().includes(dialog) ||
-            e.composedPath().includes(dialogCloseBtn)
-        ) {
-            dialog.open = false;
+    function applyScrolledStyleToHeader() {
+        if (!document.scrollingElement?.scrollTop) return;
+
+        const scrolledDown = document.scrollingElement.scrollTop > 120;
+
+        if (scrolledDown && !header.classList.contains("scrolled")) {
+            header.classList.add("scrolled");
+        } else if (!scrolledDown && header.classList.contains("scrolled")) {
+            header.classList.remove("scrolled");
         }
-    });
+    }
+
+    applyScrolledStyleToHeader();
+    document.addEventListener("scroll", applyScrolledStyleToHeader);
 </script>
 
 <style>
-    :root {
-        --dark-01: #292929;
-        --light-01: #eee;
-        --accent-01: #27b9b4;
-    }
-
     header {
         height: 48px;
+        background-color: var(--dark-02);
+        position: relative;
+        z-index: 2;
 
         .header-container {
             position: fixed;
             height: 48px;
             width: 100%;
-            z-index: 1;
             top: 0;
 
             display: flex;
@@ -89,6 +54,16 @@ const { pathname } = Astro.url;
             align-items: center;
             background-color: var(--dark-01);
             color: var(--light-01);
+            transform-origin: top;
+
+            transition-property: transform, box-shadow;
+            transition-duration: 0.25s;
+            transition-timing-function: ease;
+
+            &.scrolled {
+                transform: scaleY(0.96);
+                box-shadow: 0px 2px 12px var(--see-through-02);
+            }
 
             #head-logo-container {
                 height: 56px;
@@ -125,10 +100,10 @@ const { pathname } = Astro.url;
                 color: var(--light-01);
             }
             a.active {
-                color: forestgreen;
+                color: var(--accent-01);
             }
             a:active {
-                color: darkgreen;
+                color: var(--accent-02);
             }
         }
     }

@@ -1,0 +1,125 @@
+---
+import menuIcon from "../assets/menu.svg";
+import closeIcon from "../assets/x.svg";
+
+const APP_ROUTES = [
+    { name: "home", href: "/" },
+    { name: "books", href: "/books" },
+    { name: "about", href: "/about" },
+];
+
+const { pathname } = Astro.url;
+---
+
+<nav>
+    <div id="large-nav">
+        {
+            APP_ROUTES.map((link) => (
+                <a href={link.href} class={pathname === link.href ? "active" : ""}>
+                    {link.name}
+                </a>
+            ))
+        }
+    </div>
+
+    <div id="small-nav">
+        <button>
+            <img src={menuIcon.src} id="nav-hamburger-btn" />
+        </button>
+
+        <dialog>
+            <button id="nav-close-btn">
+                <img src={closeIcon.src} alt="close" srcset="" />
+            </button>
+            {
+                APP_ROUTES.map((link) => (
+                    <a href={link.href} class={pathname === link.href ? "active" : ""}>
+                        <div class="link-btn">{link.name}</div>
+                    </a>
+                ))
+            }
+        </dialog>
+    </div>
+</nav>
+
+<script>
+    const smallNav = document.querySelector("#small-nav")!;
+    const navBtn = smallNav.querySelector("button")!;
+    const dialog = smallNav.querySelector("dialog")!;
+    const dialogCloseBtn = dialog.querySelector("button")!;
+
+    document.addEventListener("click", (e) => {
+        if (e.composedPath().includes(navBtn)) {
+            dialog.open = !dialog.open;
+        } else if (
+            !e.composedPath().includes(dialog) ||
+            e.composedPath().includes(dialogCloseBtn)
+        ) {
+            dialog.open = false;
+        }
+    });
+</script>
+
+<style>
+    nav {
+        margin-right: 18px;
+        font-size: 18px;
+
+        #large-nav a {
+            margin-left: 8px;
+            text-transform: uppercase;
+        }
+    }
+
+    dialog {
+        z-index: 2;
+        background-color: var(--dark-01);
+        top: 48px;
+        border: 2px solid var(--dark-02);
+        border-radius: 16px;
+        text-align: right;
+    }
+
+    /* #nav-close-btn {
+        
+    } */
+
+    .link-btn {
+        padding: 8px 16px;
+        border-radius: 6px;
+        width: 120px;
+        text-align: center;
+
+        &:hover {
+            background-color: var(--dark-02);
+        }
+    }
+
+    a {
+        text-decoration: none;
+        color: var(--light-01);
+    }
+    a.active {
+        color: var(--accent-01);
+    }
+    a:active {
+        color: var(--accent-02);
+    }
+
+    @media screen and (max-width: 600px) {
+        #large-nav {
+            display: none;
+        }
+        #small-nav {
+            display: block;
+        }
+    }
+    @media screen and (min-width: 601px) {
+        #large-nav {
+            display: block;
+        }
+        #small-nav {
+            display: none;
+        }
+    }
+</style>

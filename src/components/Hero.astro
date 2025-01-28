@@ -1,5 +1,6 @@
 ---
-
+import { Image } from "astro:assets";
+import heroImg from "../assets/hero.webp";
 ---
 
 <div id="hero-container">
@@ -12,28 +13,22 @@
             no limits!
         </p>
     </div>
-    <img id="hero-image" src="hero.webp" />
+    <!-- <img id="hero-image" src={heroImg.src} /> -->
+    <Image id="hero-image" src={heroImg} alt="" />
 </div>
 
 <style>
-    :root {
-        --dark-01: #292929;
-        --light-01: #eee;
-        --secondary-01: #7b00ff;
-        --accent-01: #27b9b4;
-        --see-through-01: #29292955;
-    }
-
     #hero-container {
         display: flex;
         justify-content: space-between;
         background-color: var(--secondary-01);
         width: 100%;
+        overflow: hidden;
     }
 
     #hero-text-container {
         position: absolute;
-        top: 240px;
+        top: 220px;
         left: 50%;
         z-index: 1;
         transform: translateX(-50%);
@@ -42,10 +37,15 @@
         background-color: var(--see-through-01);
         backdrop-filter: blur(0.5);
 
-        min-width: 360px;
+        min-width: 280px;
+        max-width: 420px;
         border-radius: 16px;
         text-align: center;
         padding: 24px;
+
+        p {
+            font-size: 18px;
+        }
     }
 
     img#hero-image {

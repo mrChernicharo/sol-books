@@ -26,6 +26,37 @@ import Header from "../components/Header.astro";
 </html>
 
 <style>
+    #background {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        filter: blur(100px);
+    }
+</style>
+
+<style is:global>
+    :root {
+        --dark-01: #292929;
+        --dark-02: #343333;
+        --dark-03: #4e4d4d;
+        --light-01: #eee;
+        --light-02: #ccc;
+        --light-03: #aaa;
+        --secondary-01: #7b00ff;
+        --accent-02: #268a86;
+        --accent-01: #27b9b4;
+        --see-through-01: #29292955;
+        --see-through-02: #292929af;
+    }
+
+    * {
+        box-sizing: border-box;
+        outline-color: var(--accent-01);
+    }
+
     html,
     body {
         margin: 0;
@@ -35,13 +66,23 @@ import Header from "../components/Header.astro";
         font-family: Inter, Roboto, "Helvetica Neue", "Arial Nova", "Nimbus Sans", Arial, sans-serif;
     }
 
-    #background {
-        position: fixed;
-        top: 0;
-        left: 0;
+    /* CSS */
+    button {
+        padding: 0.6em 1em 0.3rem;
+        border: none;
+        cursor: pointer;
+        position: relative;
+        border-radius: 6px;
+    }
+
+    button:after {
+        z-index: -1;
+        content: "";
+        position: absolute;
         width: 100%;
         height: 100%;
-        z-index: -1;
-        filter: blur(100px);
+        left: 0;
+        top: 0;
+        border-radius: 6px;
     }
 </style>
